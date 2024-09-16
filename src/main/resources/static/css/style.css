@@ -1,0 +1,31 @@
+.form-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+}
+.form-container {
+            width: 400px; /* Adjust the width as needed */
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+}
+.registration-form{
+    padding:0.7em;
+}
+
+.error {
+    color:red;
+}
+
+.display-message {
+    border: 4px solid red;
+    padding: 1.2em;
+    background-color : #F28585;
+    width: fit-content; /* Adjust width based on content */
+    margin: 0 auto; /* Center horizontally */
+}
+.span {
+    font-size:1.3em;
+}
+

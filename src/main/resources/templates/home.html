@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+
+<!--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>-->
+<!--    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>-->
+<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLR8pd7t2/mOShy+nvS7B2OUoR/Mj1FfnJHBSpU0pL" crossorigin="anonymous">-->
+<!--    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
+
+    <style>
+
+        .files-container {
+            justify-content: center;
+            align-items: center;
+        }
+
+        .button {
+            display: flex; /* Ensure the button uses flexbox */
+            align-items: center; /* Center items vertically */
+            justify-content: space-between; /* Distribute space between text and icon */
+            height: 80px;
+            padding: 0 20px; /* Ensure padding is consistent */
+            border: none;
+            outline: none;
+            border-radius: 5px;
+            font-family: "Quicksand", sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            flex: 1;
+            margin-right: 20px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 3em;
+        }
+
+        .button__text, .button__icon {
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+            height: 100%;
+        }
+
+        .button__icon {
+            font-size: 1.5em;
+            background: rgba(0, 0, 0, 0.08);
+        }
+
+        .button-wrapper {
+            flex: 1; /* Ensure button-wrapper takes up available space */
+            display: flex;
+        }
+
+
+         .button-group {
+            display: flex;
+            gap: 10px;
+         }
+
+        .button-group form {
+            margin: 0;
+        }
+
+        .hoverable:hover {
+            background-color: #f5f5f5;
+            cursor: pointer;
+        }
+
+        .main-buttons {
+            background: #d1d1e0; /* Set the default background color here */
+            transition: background 0.3s ease; /* Optional: smooth transition effect */
+        }
+
+        .main-buttons:hover {
+            background: #a4a4c1;
+        }
+
+         .btn.dropdown-toggle::after {
+            display: none;
+        }
+        /* Set background color to transparent */
+        .btn-transparent {
+            background-color: transparent;
+            border: none;
+        }
+        /* Optional: Adjust button padding and other styles */
+        .btn-transparent img {
+            vertical-align: middle;
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row flex-nowrap">
+        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                    <span class="fs-5 d-none d-sm-inline">Menu</span>
+                </a>
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+
+                    <li class="nav-item">
+                        <a th:href="@{/data-collections/collections}" class="nav-link align-middle px-0">
+                            <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">All collections</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{/data-collections/received-collections}" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Shared by others</span></a>
+                    </li>
+
+                    <li>
+                        <a th:href="@{/data-collections/shared-collections}" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Shared by me</span> </a>
+                    </li>
+
+                    <li>
+                        <a th:href="@{/data-collections/my-collections}" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">My collections</span> </a>
+
+                    </li>
+                </ul>
+                <hr>
+                <div class="dropdown pb-4" th:if="${#strings.equals(username, 'Unknown') == false}">
+                    <button class="btn btn-info d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                            id="dropdownUser1" data-toggle="dropdown" aria-expanded="false">
+                        <img src="/images/profile.jpg" alt="profile" width="30" height="30" class="rounded-circle">
+                        <span class="d-none d-sm-inline mx-1" th:text="${username}"></span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+                        <li><a class="dropdown-item" th:href="@{/logout}">Sign out</a></li>
+                        <li><button class="dropdown-item" th:data-url="@{/shares/get-pending-shares}" onclick="getRequests(this)">Requests</button></li>
+                    </ul>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="col py-3">
+            <div class="button-container">
+                <button type="button" class="button main-buttons"
+                        data-toggle="modal" data-target="#createFolderModal">
+                    <span class="button__text">Create folder</span>
+                    <span class="button__icon" >
+                       <ion-icon name="folder-outline"></ion-icon>
+                    </span>
+                </button>
+
+                <div class="button-wrapper" style="position: relative;">
+                    <button type="button" class="button main-buttons">
+                        <span class="button__text">Upload</span>
+                        <span class="button__icon">
+                             <ion-icon name="cloud-upload-outline"></ion-icon>
+                        </span>
+                    </button>
+                    <form id="filesUploadsForm" method="POST" th:action="@{/data-collections/new-file/{id}(id=${currentFolder.id})}"
+                          enctype="multipart/form-data" th:object="${currentFolder}">
+                        <input type="file" id="fileInput" name="files" multiple onchange="filesUploadsForm.submit()"
+                               style="position: absolute; top: 0; left: 0; opacity: 0; width: 100%; height: 100%; cursor: pointer;">
+                    </form>
+                </div>
+            </div>
+
+            <div th:if="${statusCode == 200}"
+                 class="alert alert-success" role="alert" th:text="${statusMessage}">
+            </div>
+            <div th:if="${statusCode >= 400}"
+                 class="alert alert-danger" role="alert" th:text="${statusMessage}">
+            </div>
+
+            <div th:if="${resourceMessage}"
+                 class="alert alert-danger" role="alert" th:text="${resourceMessage}">
+            </div>
+
+            <div class="files-container">
+                <h2>All files</h2>
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Owner</th>
+                        <th scope="col">Modified</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr th:each="dataCollection, stat : ${currentFolder.dataCollectionList}"
+                        th:class="${dataCollection.folder} ? 'hoverable' : ''"
+                        th:data-url="@{/data-collections/collections/{id}(id=${dataCollection.id})}"
+                        onclick="handleClick(this)" th:object="${currentFolder}">
+
+                    <td th:text="${stat.index + 1}"></td>
+                                <td th:text="${dataCollection.name}"></td>
+                                <td th:text="${dataCollection.owner}"></td>
+                                <td th:text="${dataCollection.modified}">Modified</td>
+
+                                <td>
+                                    <div class="button-group">
+
+                                        <button type="button" class="btn btn-primary" th:onclick="showModal([[${dataCollection.id}]])">Share</button>
+
+                                        <form method="POST" action="" th:action="@{/data-collections/delete/{dataCollectionId}(dataCollectionId=${dataCollection.id})}">
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </form>
+
+                                        <form method="GET" th:if="${dataCollection.preview==true}" action=""
+                                              th:action="@{/data-collections/preview/{dataCollectionId}(dataCollectionId=${dataCollection.id})}"
+                                              onsubmit="return previewFileInNewTab(this)">
+                                            <button type="submit" class="btn btn-info">Preview</button>
+                                        </form>
+
+                                        <div class="dropdown">
+                                            <button class="btn btn-transparent" type="button" id="dropdownMenuButton1"
+                                                    data-bs-toggle="dropdown" aria-expanded="false" onclick="dropDownActions(event)">
+                                                <img th:src="@{/images/dots.png}" alt="Icon" style="width: 20px; height: 20px; margin-right: 5px;">
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                <li> <button type="button" class="dropdown-item"
+                                                             th:data-url="@{/shares/{id}(id=${dataCollection.id})}"
+                                                             th:onclick="fetchUsersHavingAccessToResource(this, [[${dataCollection.id}]])">Revoke sharing</button></li>
+                                                <li><a class="dropdown-item" th:href="@{/data-collections/download/{dataCollectionId}(dataCollectionId=${dataCollection.id})}">Download</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </td>
+
+                            <div class="modal fade"  th:id="'modal-' + ${dataCollection.id}" tabindex="-1" role="dialog" aria-labelledby="shareFileModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="shareFileModalLabel" th:text="'Share resource named ' + ${dataCollection.name}"></h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" th:onclick="closeModal('modal-' + [[${dataCollection.id}]])">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <form id="share-form-file" action="" method="post">
+                                        <div class="modal-body">
+                                                <div class="form-group" id="form-group">
+                                                    <label for="email">User email</label>
+                                                    <input type="email" class="form-control" id="email" name="email[]"
+                                                           aria-describedby="emailHelp" placeholder="Enter user email" style="width:80%;">
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+
+                                                <button type="button" class="btn btn-secondary" th:data-coll-id="@{http://localhost:8082/data-collections/shared-resource/{dataCollectionId}(dataCollectionId=${dataCollection.id})}"
+                                                        onclick="copyResourceId(this)">
+                                                    <span class="tooltiptext" id="myTooltip">Copy to clipboard</span>
+                                                    Copy link</button>
+
+                                                <button type="submit" class="btn btn-primary" th:formaction="@{/shares/share-via-link/{dataCollectionId}(dataCollectionId=${dataCollection.id})}">Share with all</button>
+
+                                                <button type="submit" class="btn btn-primary" th:formaction="@{/shares/share/{dataCollectionId}(dataCollectionId=${dataCollection.id})}">Share</button>
+                                                <button type="button" class="btn btn-success" onclick="addField();">Add new user</button>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal fade" th:id="'revokeModal-' + ${dataCollection.id}" tabindex="-1" role="dialog" aria-labelledby="shareFileModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="revokeSharing" th:text="'Revoke sharing for resource named ' + ${dataCollection.name} +  ' by clicking to the user email'"></h5>
+                                            <button type="button" class="close" th:onclick="closeModal('revokeModal-' + [[${dataCollection.id}]])">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                             <div class="modal-body">
+                                                 <div class="form-group">
+                                                 </div>
+                                            </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="pendingShares" tabindex="-1" role="dialog" aria-labelledby="shareFileModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="pending shares">Pending shares</h5>
+                <button type="button" class="close" onclick="closePendingSharesModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="createFolderModal" tabindex="-1" role="dialog" aria-labelledby="createFolderModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createFolderModalLabel">Create folder</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form th:action="@{/data-collections/create-folder/{id}(id=${currentFolder.id})}" method="POST"
+                  th:object="${currentFolder}">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="folder">Folder name</label>
+                        <input type="text" class="form-control" id="folder" name="name"
+                               aria-describedby="emailHelp" placeholder="Enter folder name">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<!--<script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>-->
+<!--<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>-->
+<!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Use Bootstrap 4 JS and Popper.js -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<!--<script>-->
+<!--    document.addEventListener('DOMContentLoaded', function() {-->
+<!--       var modalElement = document.getElementById("fileModal");-->
+<!--       if (modalElement) {-->
+<!--           $(modalElement).modal('show');-->
+<!--       }-->
+<!--   });-->
+<!--</script>-->
+<script>
+    function handleClick(row) {
+         if (row.classList.contains('hoverable')) {
+             var url = row.getAttribute('data-url');
+             if (url) {
+                window.location.href = url;
+             }
+         }
+    }
+</script>
+
+<script>
+    function previewFileInNewTab(form) {
+        const url = form.action;
+        const newTab = window.open(url, '_blank');
+
+        if (newTab) {
+            newTab.focus();
+            return false;
+        } else {
+            alert('Please allow popups for this website');
+            return false;
+        }
+    }
+</script>
+
+<script>
+    function copyResourceId(button) {
+      var url = button.getAttribute('data-coll-id');
+
+      // Copy the URL to the clipboard
+      navigator.clipboard.writeText(url).then(function() {
+      }).catch(function(error) {
+        // Error callback
+        console.error("Copy failed", error);
+      });
+    }
+</script>
+
+<script>
+
+    function showModal(dataCollectionId) {
+        event.stopPropagation();  // Prevent the event from bubbling up to the <tr> element
+        var modal = document.getElementById('modal-' + dataCollectionId);
+        $(modal).modal('show');
+    }
+
+    function closeModal(dataCollectionId) {
+        var modal =  document.getElementById(dataCollectionId);
+        const inputs = modal.querySelectorAll('input');
+        inputs.forEach(input => input.value = '');
+        $(modal).modal('hide');
+    }
+
+
+    function dropDownActions(event) {
+        event.stopPropagation();
+        var dropdownMenu = event.currentTarget.nextElementSibling;
+        var isVisible = dropdownMenu.style.display === 'block';
+
+        // Hide any other open dropdowns
+<!--        document.querySelectorAll('.dropdown-menu').forEach(menu => {-->
+<!--            menu.style.display = 'none';-->
+<!--        });-->
+
+        // Toggle visibility of the clicked dropdown
+        dropdownMenu.style.display = isVisible ? 'none' : 'block';
+    }
+</script>
+
+<script>
+    function fetchUsersHavingAccessToResource(button, dataCollectionId) {
+     var url = button.getAttribute('data-url');
+     var revokeModal = document.getElementById("revokeModal-" + dataCollectionId);
+     var modalBody = revokeModal.querySelector('.modal-body .form-group');
+
+     // Clear any existing content in the modal body
+     modalBody.innerHTML = '';
+
+     fetch(url, {
+         method: 'GET',
+     })
+     .then(response => response.json())  // Parse the response as JSON
+     .then(userShareRevoker => {
+         var id = userShareRevoker.resourceId;
+         var shares = userShareRevoker.receivers;
+
+         // Iterate over the shares and create a link for each
+         shares.forEach(share => {
+             var shareLink = document.createElement('a');
+             shareLink.href = `http://localhost:8082/shares/revoke/${id}/${share}`;
+             shareLink.classList.add('btn', 'btn-secondary', 'd-block', 'w-100');
+             shareLink.textContent = share;
+
+             // Append the created link to the modal body
+             modalBody.appendChild(shareLink);
+
+             modalBody.appendChild(document.createElement('br'));
+         });
+
+         // Show the modal
+         $(revokeModal).modal('show');
+     });
+ }
+
+    function closeRevokeModal() {
+        var revokeModal = document.getElementById("revokeUserAccessToResources");
+        $(revokeModal).modal('hide');
+    }
+
+</script>
+
+<script>
+
+    function getRequests(button) {
+
+     var url = button.getAttribute('data-url');
+     var revokeModal = document.getElementById("pendingShares");
+     var modalBody = revokeModal.querySelector('.modal-body .form-group');
+
+     modalBody.innerHTML = '';
+
+     fetch(url, {
+         method: 'GET',
+     })
+     .then(response => response.json()) // Parse the response as JSON
+     .then(pendingShares => {
+         pendingShares.forEach(share => {
+             // Create a new div element for each pending share
+             var shareRow = document.createElement('div');
+             shareRow.classList.add('row', 'mb-3'); // Add classes for styling
+
+             // Add the resource name
+             var resourceDiv = document.createElement('div');
+             resourceDiv.classList.add('col');
+             resourceDiv.textContent = `Resource: ${share.resourceName}`;
+             shareRow.appendChild(resourceDiv);
+
+             // Add the receiver email
+             var receiverDiv = document.createElement('div');
+             receiverDiv.classList.add('col');
+             receiverDiv.textContent = `Receiver: ${share.receiver}`;
+             shareRow.appendChild(receiverDiv);
+
+             // Add Accept button
+             var acceptButton = document.createElement('button');
+             acceptButton.classList.add('btn', 'btn-success', 'mr-2');
+             acceptButton.textContent = 'Accept';
+             acceptButton.addEventListener('click', function() {
+                 // Handle accept action here
+                 handleAccept(share.id, share.receiver);
+             });
+             shareRow.appendChild(acceptButton);
+
+             // Add Reject button
+             var rejectButton = document.createElement('button');
+             rejectButton.classList.add('btn', 'btn-danger');
+             rejectButton.textContent = 'Reject';
+             rejectButton.addEventListener('click', function() {
+                 // Handle reject action here
+                 handleReject(share.id, share.receiver);
+             });
+             shareRow.appendChild(rejectButton);
+
+             // Append the row to the modal body
+             modalBody.appendChild(shareRow);
+         });
+          $(revokeModal).modal('show');
+
+     });
+
+ }
+
+     function handleAccept(id, receiver) {
+         // Use template literals to include id and receiver in the URL
+         window.location.href = `http://localhost:8082/shares/accept/${id}/${receiver}`;
+     }
+
+     function handleReject(id, receiver) {
+         // Use template literals to include id and receiver in the URL
+         window.location.href = `http://localhost:8082/shares/reject/${id}/${receiver}`;
+     }
+
+    function closePendingSharesModal() {
+        var modal = document.getElementById("pendingShares");
+        $(modal).modal('hide');
+    }
+
+
+</script>
+
+
+</body>
+</html>
