@@ -144,24 +144,6 @@ public class FileService {
         return chunksHandler.constructFileFromChunks(chunkList);
     }
 
-//    @Transactional
-//    public ResponseEntity<String> deleteFile(String id, String owner) {
-//        if (owner.equals(Config.getUsername())) {
-//            try {
-//                fileRepository.deleteById(id);
-//                return ResponseEntity.ok().body("File deleted successfully");
-//            }catch (Exception e) {
-//                return ResponseEntity.badRequest().body(e.getMessage());
-//            }
-//        } else{
-//            try {
-//                sharingCollectionsService.unlinkResource(id);
-//                return ResponseEntity.ok().body("File unlinked successfully");
-//            }catch (Exception e) {
-//                return ResponseEntity.badRequest().body(e.getMessage());
-//            }
-//        }
-//    }
 
     public CustomFile getFileFromDBById(String id) {
         return fileRepository.findById(id).orElse(null);

@@ -12,15 +12,6 @@ import static com.kzdrava.webapp.constants.Constant.*;
 
 public class ResourceUtils {
 
-    public static ByteArrayResource convert(byte[] byteArray, String filename) {
-        return new ByteArrayResource(byteArray) {
-            @Override
-            public String getFilename() {
-                return filename;
-            }
-        };
-    }
-
 
     public static ResponseEntity<Resource> handleBrowserFiles(byte[] chunkBlobs, ContentDisposition contentDisposition)  {
 

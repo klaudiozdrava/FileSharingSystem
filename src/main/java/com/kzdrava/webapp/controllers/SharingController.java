@@ -14,12 +14,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.unipi.entities.*;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Collectors;
+
 
 @Controller
 @RequestMapping("/shares")
@@ -42,29 +40,6 @@ public class SharingController {
         sharingCollectionsService.rejectSharingRequestForResource(id, receiver);
         return "redirect:/data-collections/collections";
     }
-
-//    @PostMapping("/share/{id}")
-//    public String shareResourceHandler(@PathVariable String id, @RequestParam("email") String email,
-//                                   @RequestParam("isFolder") boolean isFolder) throws MessagingException {
-//
-//        if(isFolder) {
-//            ClientFolder folder = dataCollectionService.extractFolderById(id);
-//            if(Objects.nonNull(folder) && !folder.getOwner().equals("kzdrava50@gmail.com")) {
-//                emailService.sendFolderEmail("kzdrava50@gmail.com",
-//                        folder.getName(), OWNER, email, id);
-//
-//            }
-//        }else {
-//            ClientFile file = dataCollectionService.extractFileById(id);
-//            if(Objects.nonNull(file) && !file.getOwner().equals("kzdrava50@gmail.com")) {
-//                byte[] fileByteArray = dataCollectionService.constructFileContent(file.getId());
-//                emailService.sendFileEmail("kzdrava50@gmail.com",
-//                        file.getName(), fileByteArray, OWNER, email, id);
-//                sharingCollectionsService.shareResource(file, email, OWNER);
-//            }
-//        }
-//        return "redirect:/data-collections/collections";
-//    }
 
     @PostMapping("/share/{id}")
     public String shareFileHandler(@RequestParam("email") Set<String> emails,

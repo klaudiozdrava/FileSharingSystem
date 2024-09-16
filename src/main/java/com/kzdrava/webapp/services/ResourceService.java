@@ -20,10 +20,6 @@ public class ResourceService {
         return resourceRepository.findById(id).orElse(null);
     }
 
-    public List<Resource> getResourcesByIds(List<String> ids) {
-        return resourceRepository.findAllById(ids);
-    }
-
     @Transactional
     public void deleteResourceById(String id, String username) {
         Optional<Resource> resource = resourceRepository.findById(id);

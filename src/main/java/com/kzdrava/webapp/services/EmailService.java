@@ -31,34 +31,8 @@ public class EmailService {
     Thank you.
     """;
 
-
-
     private final static String EMAIL_SUBJECT = "RESOURCE ACCEPTANCE";
 
-
-//    @Async
-//    public void sendFileEmail(String to, String filename,
-//                              byte[] byteArray, String userAskedFor,
-//                              String targetedUser, String fileId) throws MessagingException {
-//
-//        MimeMessage message = javaMailSender.createMimeMessage();
-//        MimeMessageHelper helper = new MimeMessageHelper(message, true);
-//
-//        String emailBody = formatEmailBody(to, userAskedFor, filename, targetedUser, fileId);
-//
-//        helper.setTo(to);
-//        helper.setSubject(EMAIL_SUBJECT);
-//        helper.setText(emailBody);
-//        helper.setFrom(fromEmailId);
-//
-//
-//        ByteArrayResource byteArrayInputStream = ResourceUtils.convert(byteArray, filename);
-//
-//        helper.addAttachment(filename, byteArrayInputStream);
-//
-//        javaMailSender.send(message);
-//
-//    }
 
     @Async
     public void sendEmail(String to, String resourceName,
