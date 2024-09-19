@@ -30,10 +30,8 @@ public class Config {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return email -> {
-            System.out.println("Attempting to load user by email: " + email);
-            return repository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        };
+        return email -> repository.findByEmail(email).orElseThrow(() ->
+                new UsernameNotFoundException("User not found"));
     }
 
     @Bean

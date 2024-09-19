@@ -32,8 +32,6 @@ public class AuthenticationService {
             return ResponseEntity.status(409)
                     .body("User already exists");
         }
-        log.info("User email {}", request.getEmail());
-        log.info("User password {}", request.getPassword());
 
         var user = User.builder()
                 .firstName(request.getFirstName())
@@ -42,9 +40,6 @@ public class AuthenticationService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.USER)
                 .build();
-
-        log.info("User email {}", user.getEmail());
-        log.info("User password {}", user.getPassword());
 
         repository.save(user);
 
