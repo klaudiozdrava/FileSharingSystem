@@ -169,7 +169,7 @@
                     </button>
                     <form id="filesUploadsForm" method="POST" th:action="@{/data-collections/new-file/{id}(id=${currentFolder.id})}"
                           enctype="multipart/form-data" th:object="${currentFolder}">
-                        <input type="file" id="fileInput" name="files" multiple onchange="filesUploadsForm.submit()"
+                        <input type="file" id="fileInput" name="files" accept=".jpg,.jpeg,.png,.txt, .pdf, .csv, .docx" onchange="filesUploadsForm.submit()"
                                style="position: absolute; top: 0; left: 0; opacity: 0; width: 100%; height: 100%; cursor: pointer;">
                     </form>
                 </div>
