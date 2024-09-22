@@ -40,7 +40,6 @@ public class DataCollectionsController {
     private final FolderService folderService;
     private final FileService fileService;
     private final ResourceService resourceService;
-    private final EmailService emailService;
     private final SharingCollectionsService sharingCollectionsService;
     
 

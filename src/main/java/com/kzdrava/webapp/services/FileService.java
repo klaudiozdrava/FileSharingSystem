@@ -109,7 +109,7 @@ public class FileService {
 
     }
 
-    //TODO check if the logic makes sense
+
     @Transactional
     private void updateOnlyNewChunks (List<Chunk> newChunks, String fileId) {
 
