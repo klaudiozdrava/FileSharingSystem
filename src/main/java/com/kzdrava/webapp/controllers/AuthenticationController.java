@@ -29,7 +29,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute RegisterRequest registerRequest, RedirectAttributes redirectAttributes) {
+    public String register(@ModelAttribute RegisterRequest registerRequest) {
         ResponseEntity<String> response = service.register(registerRequest);
         if(response.getStatusCode().is2xxSuccessful()) {
             return "redirect:/login";
@@ -39,7 +39,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/authenticate")
-    public String authenticate(@ModelAttribute AuthenticateRequest authenticateRequest, RedirectAttributes redirectAttributes) {
+    public String authenticate(@ModelAttribute AuthenticateRequest authenticateRequest) {
         ResponseEntity<String> response = service.authenticate(authenticateRequest);
         if(response.getStatusCode().is2xxSuccessful()) {
             return "redirect:/login?success";
